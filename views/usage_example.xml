@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+    ══════════════════════════════════════════════════════════════════════════
+    HOW TO USE Persian Date Picker in your views
+    ══════════════════════════════════════════════════════════════════════════
+
+    1.  Install the module "persian_date_picker"
+
+    2.  In your form / list view, set the widget attribute:
+
+        For Date fields:
+            widget="persian_date"
+
+        For Datetime fields:
+            widget="persian_datetime"
+
+    3.  Optional: enable Persian/Arabic-Indic numerals with:
+            options="{'usePersianDigits': True}"
+
+    ══════════════════════════════════════════════════════════════════════════
+    EXAMPLE — res.partner form view extension
+    ══════════════════════════════════════════════════════════════════════════
+    -->
+
+    <!-- Example: extend sale.order to show Persian dates -->
+    <!--
+    <record id="view_order_form_persian_dates" model="ir.ui.view">
+        <field name="name">sale.order.form.persian</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="date_order" position="attributes">
+                <attribute name="widget">persian_datetime</attribute>
+            </field>
+            <field name="validity_date" position="attributes">
+                <attribute name="widget">persian_date</attribute>
+            </field>
+        </field>
+    </record>
+    -->
+
+    <!--
+    ══════════════════════════════════════════════════════════════════════════
+    EXAMPLE — Using Persian digits option
+    ══════════════════════════════════════════════════════════════════════════
+
+        <field name="date_order"
+               widget="persian_datetime"
+               options="{'usePersianDigits': True}"/>
+    -->
+
+</odoo>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="persian_date_picker.Popup">
+        <div class="o_pdp_popup" t-on-mousedown.stop="" t-on-click.stop="">
+
+            <!-- Header -->
+            <div class="o_pdp_header">
+                <button class="o_pdp_nav" type="button" t-on-click="prevMonth">&#8249;</button>
+                <div class="o_pdp_header_center">
+                    <select class="o_pdp_month_select" t-on-change="onMonthChange">
+                        <t t-foreach="months" t-as="m" t-key="m.i">
+                            <option t-att-value="m.i + 1"
+                                    t-att-selected="m.i + 1 === state.viewMonth">
+                                <t t-esc="m.name"/>
+                            </option>
+                        </t>
+                    </select>
+                    <select class="o_pdp_year_select" t-ref="yearSelect" t-on-change="onYearChange">
+                        <t t-foreach="yearRange" t-as="yr" t-key="yr">
+                            <option t-att-value="yr"
+                                    t-att-selected="yr === state.viewYear">
+                                <t t-esc="yr"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <button class="o_pdp_nav" type="button" t-on-click="nextMonth">&#8250;</button>
+            </div>
+
+            <!-- Weekday headers -->
+            <div class="o_pdp_weekrow">
+                <t t-foreach="weekdays" t-as="wd" t-key="wd_index">
+                    <div class="o_pdp_wday"><t t-esc="wd"/></div>
+                </t>
+            </div>
+
+            <!-- Day grid -->
+            <div class="o_pdp_daygrid">
+                <t t-foreach="calendarDays" t-as="day" t-key="day.key">
+                    <div t-att-class="day.cls"
+                         t-on-click="() => day.jd and this.pickDay(day.jd)">
+                        <t t-if="day.jd"><t t-esc="day.jd"/></t>
+                    </div>
+                </t>
+            </div>
+
+            <!-- Time row (datetime only) -->
+            <t t-if="props.type === 'datetime'">
+                <div class="o_pdp_timerow">
+                    <input class="o_pdp_timeinput" type="number" min="0" max="23"
+                           t-att-value="state.hours"
+                           t-on-change="(e) => this.timeChange(e,'hours')"
+                           placeholder="HH"/>
+                    <span class="o_pdp_timesep">:</span>
+                    <input class="o_pdp_timeinput" type="number" min="0" max="59"
+                           t-att-value="state.minutes"
+                           t-on-change="(e) => this.timeChange(e,'minutes')"
+                           placeholder="MM"/>
+                    <span class="o_pdp_timesep">:</span>
+                    <input class="o_pdp_timeinput" type="number" min="0" max="59"
+                           t-att-value="state.seconds"
+                           t-on-change="(e) => this.timeChange(e,'seconds')"
+                           placeholder="SS"/>
+                </div>
+            </t>
+
+            <!-- Footer -->
+            <div class="o_pdp_footer">
+                <button class="o_pdp_btn o_pdp_today_btn" type="button" t-on-click="goToday">امروز</button>
+                <button class="o_pdp_btn o_pdp_clear_btn" type="button" t-on-click="clear">پاک کردن</button>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="persian_date_picker.DateField">
+        <div class="o_pdp_wrapper" t-ref="root">
+            <div class="o_pdp_inputgroup">
+                <input type="text"
+                       class="o_input o_pdp_input"
+                       t-att-value="displayValue"
+                       readonly="readonly"
+                       placeholder="YYYY/MM/DD"
+                       t-on-click="togglePicker"
+                       autocomplete="off"/>
+                <t t-if="!isReadonly">
+                    <button class="o_pdp_calbtn" type="button" t-on-click="togglePicker">
+                        <i class="fa fa-calendar"/>
+                    </button>
+                </t>
+            </div>
+            <t t-if="state.open">
+                <PersianDatePickerPopup
+                    jalali="jalali"
+                    type="'date'"
+                    usePersianDigits="false"
+                    onSelect.bind="onSelect"
+                    onClear.bind="onClear"/>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="persian_date_picker.DatetimeField">
+        <div class="o_pdp_wrapper" t-ref="root">
+            <div class="o_pdp_inputgroup">
+                <input type="text"
+                       class="o_input o_pdp_input"
+                       t-att-value="displayValue"
+                       readonly="readonly"
+                       placeholder="YYYY/MM/DD HH:MM:SS"
+                       t-on-click="togglePicker"
+                       autocomplete="off"/>
+                <t t-if="!isReadonly">
+                    <button class="o_pdp_calbtn" type="button" t-on-click="togglePicker">
+                        <i class="fa fa-calendar"/>
+                    </button>
+                </t>
+            </div>
+            <t t-if="state.open">
+                <PersianDatePickerPopup
+                    jalali="jalali"
+                    type="'datetime'"
+                    usePersianDigits="false"
+                    onSelect.bind="onSelect"
+                    onClear.bind="onClear"/>
+            </t>
+        </div>
+    </t>
+
+</templates>

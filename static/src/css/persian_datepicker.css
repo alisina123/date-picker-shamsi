@@ -1,0 +1,258 @@
+/* Persian / Jalali Date Picker — Odoo 18  v3.0.0 */
+
+/* ── Wrapper ──────────────────────────────────────────────── */
+.o_pdp_wrapper {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    direction: rtl;
+}
+
+/* ── Input group ──────────────────────────────────────────── */
+.o_pdp_inputgroup {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.o_pdp_input {
+    flex: 1;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    direction: rtl;
+    text-align: right;
+    font-family: 'Vazir', 'Tahoma', Arial, sans-serif;
+    padding: 4px 8px;
+    min-width: 0;
+    background: #fff;
+}
+.o_pdp_input:focus { background: #f0f7ff; }
+
+.o_pdp_calbtn {
+    background: #f8f9fa;
+    border: none;
+    border-right: 1px solid #ced4da;
+    padding: 0 10px;
+    cursor: pointer;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    transition: background .15s, color .15s;
+    flex-shrink: 0;
+}
+.o_pdp_calbtn:hover { background: #e9ecef; color: #0d6efd; }
+
+/* ── Popup ────────────────────────────────────────────────── */
+.o_pdp_popup {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 1055;
+    min-width: 280px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.14);
+    font-family: 'Vazir', 'Tahoma', Arial, sans-serif;
+    direction: rtl;
+    user-select: none;
+    animation: pdp-in .12s ease;
+}
+@keyframes pdp-in {
+    from { opacity:0; transform:translateY(-6px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.o_pdp_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px 8px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+}
+.o_pdp_nav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    color: #495057;
+    line-height: 1;
+    transition: background .12s;
+}
+.o_pdp_nav:hover { background: #e9ecef; }
+.o_pdp_title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #212529;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: background .12s;
+}
+.o_pdp_title:hover { background: #e9ecef; }
+
+/* ── Weekday row ──────────────────────────────────────────── */
+.o_pdp_weekrow {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 6px 8px 0;
+    text-align: center;
+}
+.o_pdp_wday {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6c757d;
+    padding: 4px 0;
+    text-align: center;
+}
+.o_pdp_wday:last-child { color: #c0392b; }  /* Friday */
+
+/* ── Day grid ─────────────────────────────────────────────── */
+.o_pdp_daygrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 4px 8px 8px;
+    gap: 2px;
+}
+.o_pdp_day {
+    text-align: center;
+    padding: 5px 2px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 13px;
+    color: #212529;
+    transition: background .1s, color .1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+}
+.o_pdp_day:hover       { background: #e3f2fd; }
+.o_pdp_empty           { cursor: default; pointer-events: none; }
+.o_pdp_today           { border: 2px solid #0d6efd; font-weight: 700; color: #0d6efd; }
+.o_pdp_selected        { background: #0d6efd !important; color: #fff !important; font-weight: 700; }
+.o_pdp_friday          { color: #c0392b; }
+
+/* ── Month selector ───────────────────────────────────────── */
+.o_pdp_month_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 8px;
+    gap: 4px;
+}
+.o_pdp_month_item {
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #212529;
+    transition: background .12s;
+}
+.o_pdp_month_item:hover { background: #e9ecef; }
+.o_pdp_sel { background: #0d6efd !important; color: #fff !important; font-weight: 600; }
+
+/* ── Footer ───────────────────────────────────────────────── */
+.o_pdp_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-top: 1px solid #f0f0f0;
+    gap: 8px;
+}
+.o_pdp_btn {
+    flex: 1;
+    background: none;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    color: #495057;
+    transition: background .12s;
+}
+.o_pdp_btn:hover  { background: #f8f9fa; }
+.o_pdp_today      { color: #0d6efd; border-color: #0d6efd; }
+.o_pdp_today:hover{ background: #e3f2fd; }
+.o_pdp_clear      { color: #dc3545; border-color: #dc3545; }
+.o_pdp_clear:hover{ background: #fce4e6; }
+
+/* ── Time row (datetime) ──────────────────────────────────── */
+.o_pdp_timerow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border-top: 1px solid #f0f0f0;
+    direction: ltr;
+}
+.o_pdp_timeinput {
+    width: 44px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 13px;
+    font-family: inherit;
+}
+.o_pdp_timeinput:focus { outline: none; border-color: #0d6efd; }
+.o_pdp_timesep { font-weight: 700; color: #495057; }
+
+/* ── Make sure popups stack above modals ──────────────────── */
+.modal .o_pdp_popup { z-index: 1200; }
+
+/* ── List view date cells — RTL when fa ───────────────────── */
+.o_field_date .o_pdp_wrapper,
+.o_field_datetime .o_pdp_wrapper {
+    width: 100%;
+}
+
+/* ── Month/Year dropdown selects ──────────────────────────── */
+.o_pdp_header_center {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    direction: rtl;
+}
+
+.o_pdp_month_select,
+.o_pdp_year_select {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Vazir', 'Tahoma', Arial, sans-serif;
+    background: #fff;
+    cursor: pointer;
+    color: #212529;
+    direction: rtl;
+    outline: none;
+    appearance: auto;
+}
+
+.o_pdp_month_select:focus,
+.o_pdp_year_select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 2px rgba(13,110,253,.15);
+}
+
+.o_pdp_month_select { min-width: 95px; }
+
+/* Year select: shows ~8 items at a time, scrollable through 1300-1500 */
+.o_pdp_year_select {
+    min-width: 75px;
+    size: 1;
+}
